@@ -43,17 +43,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ChartTheme {
-        Surface {
-            SplitScreen(
-                firstPanel = {},
-                secondPanel = {},
-                uiState = SplitUiState(SplitState.SPLIT,0.5f),
-                {},{}
-            )
-        }
-    }
-}
