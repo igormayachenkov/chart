@@ -17,6 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import ru.igormayachenkov.chart.ui.theme.ChartTheme
 import ru.igormayachenkov.geo.feature.split.SplitScreen
 import ru.igormayachenkov.geo.feature.split.SplitState
@@ -25,6 +27,7 @@ import ru.igormayachenkov.geo.feature.split.SplitStateSaverImpl
 import ru.igormayachenkov.geo.feature.split.SplitUiState
 import ru.igormayachenkov.geo.feature.split.SplitViewModel
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +37,8 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
                         val context = LocalContext.current
-                        val splitViewModel = remember{SplitViewModel(SplitStateSaverImpl(context))}
+                        //val splitViewModel = remember{SplitViewModel(SplitStateSaverImpl(context))}
+                        val splitViewModel = hiltViewModel<SplitViewModel>()
                         val splitUiState by splitViewModel.stateFlow.collectAsState()
                         SplitScreen(
                             firstPanel = {
