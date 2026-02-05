@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.igormayachenkov.chart.ui.AppContent
 import ru.igormayachenkov.chart.ui.theme.ChartTheme
 import ru.igormayachenkov.geo.feature.split.SplitScreen
 import ru.igormayachenkov.geo.feature.split.SplitState
@@ -35,36 +36,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             ChartTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Box(modifier = Modifier.padding(innerPadding)) {
-                        val context = LocalContext.current
-                        //val splitViewModel = remember{SplitViewModel(SplitStateSaverImpl(context))}
-                        val splitViewModel = hiltViewModel<SplitViewModel>()
-                        val splitUiState by splitViewModel.stateFlow.collectAsState()
-                        SplitScreen(
-                            firstPanel = {
-                                Greeting(                            name = "first"                            )
-                            },
-                            secondPanel = {
-                                Text("Second")
-                            },
-                            uiState = splitUiState,
-                            setWeight = splitViewModel::setWeight,
-                            saveData = splitViewModel::saveData
-
-                        )
-
-                    }
+                    AppContent(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(
-        text = "Hello $name!",
-    )
 }
 
 @Preview(showBackground = true)
