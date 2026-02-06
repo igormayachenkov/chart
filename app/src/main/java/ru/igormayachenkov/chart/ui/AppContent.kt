@@ -27,10 +27,12 @@ fun AppContent(modifier: Modifier){
         val listViewModel = hiltViewModel<DataListViewModel>()
         val dataList by listViewModel.dataListFlow.collectAsState()
 
+        val chartsViewModel = hiltViewModel<ChartsViewModel>()
+        val chartsUiState by chartsViewModel.stateFlow.collectAsState()
 
         SplitScreen(
             firstPanel = {
-                Text(  "Charts")
+                ChartsScreen(chartsUiState)
             },
             secondPanel = {
                 DataListScreen(dataList)
